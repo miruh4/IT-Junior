@@ -1,0 +1,280 @@
+import turtle
+import math
+import time
+import random
+import colorsys  
+
+# --- Configurare turtle ---
+t = turtle.Turtle()
+t.hideturtle()
+t.speed(0)
+t.pensize(2)
+ecran = turtle.Screen()
+ecran.bgcolor("black")
+ecran.title("🌌 QUANTUM TURTLE SHOW 🌌")
+turtle.tracer(0, 0)  # Oprim desenarea automată pentru viteză maximă
+
+
+# Funcție ajutătoare pentru culori curcubeu fluide
+def get_color(hue):
+    # Transformă un număr (0.0 - 1.0) în culoare RGB
+    c = colorsys.hsv_to_rgb(hue, 1, 1)
+    return c
+
+
+# === 1️⃣ INTRO CIBERNETIC ===
+def intro_matrix():
+    text = "SYSTEM INITIALIZING..."
+    chars = "01"
+
+    # Efect de decriptare
+    for i in range(30):
+        t.clear()
+        t.penup()
+        t.goto(0, 0)
+
+        # Generăm un fundal de numere random stil Matrix
+        decoded_text = ""
+        for char in text:
+            if random.random() > (i / 30):  # Încet-încet apar literele reale
+                decoded_text += random.choice(chars)
+            else:
+                decoded_text += char
+
+        t.color("lime")
+        t.write(decoded_text, align="center", font=("Courier", 25, "bold"))
+        turtle.update()
+        time.sleep(0.08)
+
+    time.sleep(0.5)
+    t.clear()
+
+
+# === 2️⃣ TUNELUL PĂTRAT (EFECT 3D) ===
+# Creează iluzia că intri în ecran
+def tunel_infinit():
+    squares = []  # Lista de pătrate: [mărime, unghi, nuanță_culoare]
+
+    # Pre-populăm tunelul
+    for i in range(20):
+        squares.append([i * 15, i * 5, i / 20.0])
+
+    for _ in range(120):  # Durata animației
+        t.clear()
+
+        # Desenăm fiecare pătrat din tunel
+        for sq in squares:
+            size, angle, hue = sq
+
+            t.penup()
+            t.goto(0, 0)
+            t.setheading(angle)
+            t.forward(size)  # Mic truc pentru a centra rotația
+            t.right(90)
+            t.forward(size)
+            t.left(90)
+            t.pendown()
+
+            t.color(get_color(hue))
+            t.pensize(2 + size / 50)  # Liniile apropiate sunt mai groase
+
+            # Desenăm pătratul centrat (aproximativ)
+            t.penup()
+            t.goto(0, 0)
+            t.setheading(angle)
+            t.forward(size)
+            t.right(90)
+            t.forward(size)
+            t.right(90)
+            t.pendown()
+
+            for _ in range(4):
+                t.forward(size * 2)
+                t.right(90)
+
+            # Actualizăm datele pentru cadrul următor (creștere + rotație)
+            sq[0] += 4  # Mărește dimensiunea (vine spre noi)
+            sq[1] += 2  # Rotește
+            sq[2] += 0.01  # Schimbă culoarea
+
+            # Dacă pătratul e prea mare, îl resetăm în centru (buclă infinită)
+            if sq[0] > 400:
+                sq[0] = 5
+
+        turtle.update()
+        time.sleep(0.02)
+
+
+# === 3️⃣ CURBE LISSAJOUS (NODURI MATEMATICE) ===
+# Forme complexe care seamănă cu structuri atomice
+def noduri_lissajous():
+    hue = 0
+    phase_x = 0
+    phase_y = 0
+
+    for _ in range(150):
+        t.clear()
+        t.penup()
+
+        # Desenăm o urmă de puncte
+        points = []
+        for i in range(0, 360, 2):
+            rad = math.radians(i)
+            # Formule matematice pentru curbe complexe
+            # Schimbând 3 și 2 obții forme diferite (noduri)
+            x = 250 * math.sin(3 * rad + phase_x)
+            y = 250 * math.sin(2 * rad + phase_y)
+            points.append((x, y))
+
+        # Conectăm punctele
+        if points:
+            t.goto(points[0])
+            t.pendown()
+            t.color(get_color(hue))
+            t.pensize(3)
+
+            for p in points:
+                t.goto(p)
+            t.goto(points[0])  # Închidem bucla
+
+        # Modificăm parametrii pentru mișcare
+        phase_x += 0.05
+        phase_y += 0.03
+        hue += 0.005
+
+        turtle.update()
+        time.sleep(0.02)
+
+
+# === 4️⃣ ORGANIC BREATHING (MANDALA CARE RESPIRĂ) ===
+def mandala_respiratie():
+    scale = 0
+    growing = True
+    rot = 0
+
+    for _ in range(100):
+        t.clear()
+
+        # Calculăm factorul de "respirație" (pulse)
+        if growing:
+            scale += 2
+            if scale > 150: growing = False
+        else:
+            scale -= 2
+            if scale < 50: growing = True
+
+        t.penup()
+        t.goto(0, 0)
+        t.setheading(rot)
+
+        # Desenăm 12 petale
+        for i in range(12):
+            t.color(get_color((i / 12 + rot / 100) % 1.0))
+            t.penup()
+            t.goto(0, 0)
+            t.setheading(i * 30 + rot)
+            t.pendown()
+
+            # Desenăm o petală (romb)
+            t.forward(scale)
+            t.left(45)
+            t.forward(scale / 2)
+            t.left(135)
+            t.forward(scale / 2)
+            t.left(45)
+            t.forward(scale)
+
+        rot += 2
+        turtle.update()
+        time.sleep(0.03)
+
+
+# === 5️⃣ RADAR SCANNER (EFECT SONAR) ===
+def radar_scan():
+    angle = 0
+    targets = []  # Puncte "inamice" detectate
+
+    # Generăm câteva ținte fixe
+    for _ in range(5):
+        targets.append((random.randint(-200, 200), random.randint(-200, 200)))
+
+    for _ in range(120):  # O rotație completă e 360, facem mai multe
+        t.clear()
+
+        # Desenăm grila radarului
+        t.color("darkgreen")
+        t.pensize(1)
+        t.penup()
+        t.goto(0, -250);
+        t.pendown();
+        t.circle(250)
+        t.penup();
+        t.goto(0, -150);
+        t.pendown();
+        t.circle(150)
+        t.penup();
+        t.goto(0, -50);
+        t.pendown();
+        t.circle(50)
+        t.penup();
+        t.goto(0, 250);
+        t.pendown();
+        t.goto(0, -250)
+        t.penup();
+        t.goto(-250, 0);
+        t.pendown();
+        t.goto(250, 0)
+
+        # Desenăm linia care scanează
+        t.pensize(3)
+        t.color("lime")
+        t.penup();
+        t.goto(0, 0);
+        t.pendown()
+        scan_x = 250 * math.cos(math.radians(angle))
+        scan_y = 250 * math.sin(math.radians(angle))
+        t.goto(scan_x, scan_y)
+
+        # Desenăm "umbra" liniei (fade effect)
+        for j in range(1, 20):
+            t.color(0, 1 - j / 20, 0)  # Fade to black
+            t.penup();
+            t.goto(0, 0);
+            t.pendown()
+            shadow_x = 250 * math.cos(math.radians(angle - j * 2))
+            shadow_y = 250 * math.sin(math.radians(angle - j * 2))
+            t.goto(shadow_x, shadow_y)
+
+        # Desenăm țintele dacă sunt lovite de radar
+        for tx, ty in targets:
+            # Calculăm unghiul țintei
+            target_angle = math.degrees(math.atan2(ty, tx))
+            if target_angle < 0: target_angle += 360
+
+            # Normalizăm unghiul de scanare
+            scan_angle_norm = angle % 360
+
+            # Dacă radarul trece peste țintă (cu o marjă de eroare)
+            diff = abs(scan_angle_norm - target_angle)
+            if diff < 10:
+                t.penup()
+                t.goto(tx, ty)
+                t.dot(10, "red")  # BLIP! Apare roșu
+            else:
+                t.penup()
+                t.goto(tx, ty)
+                t.dot(5, "darkgreen")  # Altfel e ascuns/întunecat
+
+        angle += 4
+        turtle.update()
+        time.sleep(0.02)
+
+
+# === MAIN LOOP ===
+intro_matrix()
+
+while True:
+    tunel_infinit()
+    noduri_lissajous()
+    mandala_respiratie()
+    radar_scan()
