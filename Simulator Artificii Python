@@ -1,0 +1,110 @@
+import pygame
+import random
+import math
+
+# --- CONFIGURĂRI INIȚIALE ---
+pygame.init()
+WIDTH, HEIGHT = 800, 600
+WIN = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Simulator Artificii")
+
+# Culori
+BLACK = (0, 0, 0)
+
+# --- FUNCȚII PENTRU PARTICULE ---
+
+# 1. CREAREA: Facem o funcție care returnează un dicționar
+def creaza_particula(x, y, color):
+    # Fizica: Unghi și viteză aleatorie
+    angle = random.uniform(0, 2 * math.pi)
+    speed = random.uniform(2, 6)
+
+    # Returnăm un dicționar (o "cutiuță" cu date)
+    return {
+        "x": x,
+        "y": y,
+        "color": color,
+        "vel_x": math.cos(angle) * speed, #viteza pe axa oX
+        "vel_y": math.sin(angle) * speed, #viteza pe axa oY
+        "radius": random.randint(2, 5),
+        "life": 1.0  # Viața (100%)
+    }
+
+# 2. MIȘCAREA: O funcție care primește dicționarul și modifică valorile din el
+def misca_particula(p):
+    # a. Gravitația
+    p["vel_y"] += 0.1
+
+    # b. Frecarea
+    p["vel_x"] *= 0.99
+    p["vel_y"] *= 0.99
+
+    # c. Actualizăm poziția
+    p["x"] += p["vel_x"]
+    p["y"] += p["vel_y"]
+
+    # d. Scădem viața
+    p["life"] -= 0.015
+
+
+# 3. DESENAREA: O funcție care citește dicționarul și desenează pe ecran
+def deseneaza_particula(surface, p):
+    if p["life"] > 0:
+        current_radius = int(p["radius"] * p["life"])
+        if current_radius > 0:
+            pygame.draw.circle(surface, p["color"], (int(p["x"]), int(p["y"])), current_radius)
+
+# --- FUNCȚIE AJUTĂTOARE ---
+def get_random_color():
+    return (random.randint(100, 255), random.randint(100, 255), random.randint(100, 255))
+
+# --- BUCLA PRINCIPALĂ ---
+def main():
+    run = True
+    clock = pygame.time.Clock()
+
+    # Lista de particule (care acum conține dicționare, nu obiecte)
+    particles = []
+
+    print("Click pe ecran pentru artificii!")
+
+    while run:
+        clock.tick(60)
+
+        # 1. Efectul de urmă (Trail effect)
+        surface_transparent = pygame.Surface((WIDTH, HEIGHT))
+        surface_transparent.set_alpha(30)
+        surface_transparent.fill(BLACK)
+        WIN.blit(surface_transparent, (0, 0))
+
+        # 2. Evenimente
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_x, mouse_y = pygame.mouse.get_pos()
+                color = get_random_color()
+
+                # Creăm 50 de particule
+                for _ in range(50):
+                    # Aici apelăm funcția de creare
+                    noua_particula = creaza_particula(mouse_x, mouse_y, color)
+                    particles.append(noua_particula)
+
+        # 3. Procesarea particulelor
+        # Parcurgem lista cu o copie [:] pentru a putea șterge elemente în siguranță
+        for p in particles[:]:
+            misca_particula(p)  # Modificăm datele
+            deseneaza_particula(WIN, p)  # Desenăm
+
+            # Verificăm dacă a murit
+            if p["life"] <= 0:
+                particles.remove(p)
+
+        pygame.display.flip()
+
+    pygame.quit()
+
+if __name__ == "__main__":
+    main()
