@@ -1,0 +1,179 @@
+import turtle
+import time
+import random
+import math
+
+# --- CONFIGURARE GENERALĂ ---
+wn = turtle.Screen()
+wn.bgcolor("black")
+wn.title("🚀 Misiunea Spațială: Călătorie spre Infinit")
+wn.setup(width=800, height=600)  # Fixăm dimensiunea ferestrei
+
+t = turtle.Turtle()
+t.speed(0)  # Viteza maximă
+t.width(2)
+t.hideturtle()
+
+# Palete de culori pentru diverse etape
+culori_foc = ["#FF4500", "#FF8C00", "#FFD700", "#FF6347"]
+culori_galaxie = ["#00FFFF", "#FF00FF", "#7B68EE", "#00FA9A", "white"]
+culori_matrix = ["#00FF00", "#32CD32", "#98FB98", "#006400"]
+
+
+# --- FUNCȚII AJUTĂTOARE (CA SĂ SCRIEM MAI PUȚIN COD) ---
+def scrie_mesaj(text, y_pos=0, marime=18, culoare="white"):
+    t.penup()
+    t.goto(0, y_pos)
+    t.color(culoare)
+    t.write(text, align="center", font=("Courier New", marime, "bold"))
+
+
+def curata_ecran():
+    time.sleep(1.5)
+    t.clear()
+
+
+# ==========================================
+# PARTEA 1: NUMĂRĂTOAREA INVERSĂ (Lansarea)
+# ==========================================
+t.penup()
+t.goto(0, -50)
+t.color("white")
+
+for i in range(3, 0, -1):
+    t.write(str(i), align="center", font=("Arial", 60, "bold"))
+    time.sleep(1)
+    t.clear()
+
+scrie_mesaj("DECOLARE! 🚀", 0, 30, "orange")
+time.sleep(1)
+t.clear()
+
+# ==========================================
+# PARTEA 2: PROPULSOARELE (Spirale de foc)
+# ==========================================
+# Explicatie: Folosim cercuri care se rotesc pentru a simula focul motoarelor
+t.goto(0, 0)
+t.pendown()
+
+for i in range(80):
+    t.color(random.choice(culori_foc))
+    t.circle(i * 1.5)
+    t.left(10)  # Rotim unghiul puțin câte puțin
+    t.backward(5)  # Ne mișcăm în spate pentru efect de tunel
+
+curata_ecran()
+
+# ==========================================
+# PARTEA 3: CÂMPUL DE ASTEROIZI (Random)
+# ==========================================
+# Explicatie: Desenăm forme geometrice neregulate în locuri aleatorii
+scrie_mesaj("ATENȚIE: Câmp de Asteroizi!", 250, 14, "red")
+
+for _ in range(30):  # 30 de asteroizi
+    t.penup()
+    x = random.randint(-350, 350)
+    y = random.randint(-250, 200)
+    t.goto(x, y)
+    t.pendown()
+    t.color("gray")
+    t.begin_fill()
+
+    # Desenăm o formă neregulată (asteroid)
+    laturi = random.randint(5, 9)
+    for _ in range(laturi):
+        t.forward(random.randint(10, 30))
+        t.left(360 / laturi)
+    t.end_fill()
+
+curata_ecran()
+
+# ==========================================
+# PARTEA 4: HIPERSPAȚIUL (Tunel Geometric)
+# ==========================================
+# Explicatie: O buclă mare care creează un tunel 3D
+scrie_mesaj("Activare viteză lumină...", -250, 12)
+t.goto(0, 0)
+t.pendown()
+
+for i in range(250):
+    t.color(culori_galaxie[i % len(culori_galaxie)])
+    t.forward(i * 3)
+    t.left(121)  # 121 grade creează un model stelat/hexagonal interesant
+
+curata_ecran()
+
+# ==========================================
+# PARTEA 5: NEBULOASA COLORATĂ (Spirograf)
+# ==========================================
+# Explicatie: Cercuri desenate unul peste altul ("Nested Loops")
+t.penup()
+t.goto(0, 0)
+t.pendown()
+t.width(1)
+
+for i in range(12):  # Facem 12 "flori" mari
+    t.color(random.choice(culori_galaxie))
+    for j in range(10):  # Fiecare floare are 10 cercuri
+        t.circle(80)
+        t.left(36)  # 360 grade / 10 = 36
+    t.left(30)  # Ne mutăm pentru următoarea floare
+
+curata_ecran()
+
+# ==========================================
+# PARTEA 6: PLANETA EXTRATERESTRĂ (Model Matematica)
+# ==========================================
+# Explicatie: Desenăm un model complex care seamănă cu o planetă/radar
+scrie_mesaj("Scanare planetă necunoscută...", 260, 12, "cyan")
+t.goto(0, -150)
+t.pendown()
+t.width(2)
+
+for i in range(180):
+    t.color(culori_galaxie[i % 2])  # Alternăm 2 culori
+    t.circle(i)
+    t.left(5)  # O schimbare mică de unghi creează o sferă
+
+time.sleep(1)
+curata_ecran()
+
+# ==========================================
+# PARTEA 7: FINAL - MATRICEA (Ploaie digitală)
+# ==========================================
+# Explicatie: Linii verticale care cad
+t.width(3)
+for _ in range(40):
+    x = random.randint(-380, 380)
+    y = random.randint(0, 300)
+    lungime = random.randint(20, 100)
+
+    t.penup()
+    t.goto(x, y)
+    t.pendown()
+    t.color(random.choice(culori_matrix))
+    t.setheading(270)  # Îndreptăm capul în jos (Sud)
+    t.forward(lungime)
+
+# Mesaj Final
+t.penup()
+t.goto(0, 0)
+# Desenăm un chenar pentru text
+t.color("white")
+t.goto(-200, 50)
+t.pendown()
+for _ in range(2):
+    t.forward(400)
+    t.right(90)
+    t.forward(100)
+    t.right(90)
+
+t.penup()
+t.goto(0, -20)
+t.color("#00FF00")
+t.write("MISIUNE ÎNDEPLINITĂ", align="center", font=("Verdana", 24, "bold"))
+t.goto(0, -120)
+t.color("white")
+t.write("(Click pe ecran pentru a ieși)", align="center", font=("Arial", 10, "normal"))
+
+turtle.exitonclick()
