@@ -1,0 +1,171 @@
+import turtle
+import random
+import time
+
+# --- CONFIGURARE ECRAN ---
+wn = turtle.Screen()
+wn.bgcolor("#002b36")  # Albastru marin inchis
+wn.title("Lumea subacvatică 🐙")
+wn.setup(width=800, height=600)
+
+t = turtle.Turtle()
+t.speed(0)  # Cea mai mare viteză
+t.hideturtle()
+
+# Funcție ajutătoare pentru a nu lăsa urme
+def muta_la(x, y):
+    t.penup()
+    t.goto(x, y)
+    t.pendown()
+
+# ==========================================
+# 1. ELEMENTE DE DECOR (NISIP & ALGE)
+# ==========================================
+def deseneaza_nisip():
+    muta_la(-410, -310)
+    t.color("#E6C288")
+    t.begin_fill()
+    for _ in range(2):
+        t.forward(820)
+        t.left(90)
+        t.forward(120)
+        t.left(90)
+    t.end_fill()
+
+
+def deseneaza_alga(x, y):
+    muta_la(x, y)
+    t.color("#2E8B57")  # SeaGreen
+    t.width(3)
+    t.setheading(90)
+    inaltime = random.randint(3, 6)
+    for _ in range(inaltime):
+        t.circle(10, 180)  # Semicerc dreapta
+        t.circle(-10, 180)  # Semicerc stânga
+
+
+# ==========================================
+# 2. PEȘTELE
+# ==========================================
+def deseneaza_peste(x, y, culoare, raza):
+    muta_la(x, y)
+    t.color(culoare)
+    t.width(1)
+
+    # CORPUL (Reglat la orizontală)
+    t.setheading(-45)
+    t.begin_fill()
+    t.circle(raza, 90)  # Spatele
+
+    # Salvăm poziția nasului pentru ochi
+    nas_x = t.xcor()
+    nas_y = t.ycor()
+
+    t.left(90)
+    t.circle(raza, 90)  # Burta
+    t.end_fill()
+
+    # OCHIUL (Pus exact pe nas)
+    t.penup()
+    t.goto(nas_x - (raza / 3.5), nas_y + (raza / 10))
+    t.pendown()
+    t.color("white")
+    t.dot(raza / 3)
+    t.color("black")
+    t.dot(raza / 8)
+
+    # COADA
+    muta_la(x, y)
+    t.color(culoare)
+    t.setheading(180)
+    t.begin_fill()
+    t.left(30)
+    t.forward(raza / 1.5)
+    t.right(60)
+    t.forward(raza / 1.5)
+    t.goto(x, y)
+    t.end_fill()
+
+
+# ==========================================
+# 3. MEDUZA
+# ==========================================
+def deseneaza_meduza(x, y, raza, culoare):
+    # x, y = Centrul bazei meduzei (între tentacule)
+
+    # PĂLĂRIA (Capul)
+    # Pornim din dreapta bazei
+    muta_la(x + raza, y)
+    t.color(culoare)
+    t.setheading(90)  # Cu fața în sus
+
+    t.begin_fill()
+    # Desenăm semicercul (pălăria) de la dreapta la stânga
+    t.circle(raza, 180)
+    # Închidem baza (linie dreaptă)
+    t.goto(x + raza, y)
+    t.end_fill()
+
+    # TENTACULELE
+    # Calculăm pozițiile exacte: Stânga, Centru, Dreapta
+    t.width(2)
+    t.color("white")  # Tentacule albe/transparente
+
+    pozitii_tentacule = [x - (raza * 0.6), x, x + (raza * 0.6)]
+
+    for poz in pozitii_tentacule:
+        muta_la(poz, y)
+        t.setheading(270)  # În jos
+        # Desenăm tentacul ondulat
+        for _ in range(3):
+            t.circle(5, 180)
+            t.circle(-5, 180)
+
+
+# ==========================================
+# 4. SCENARIUL PRINCIPAL (Rulează tot)
+# ==========================================
+
+# 1. Background
+deseneaza_nisip()
+
+# 2. Pădure de alge
+for _ in range(12):
+    xx = random.randint(-380, 380)
+    deseneaza_alga(xx, -190)
+
+# 3. Banc de Pești (Diverse culori și mărimi)
+culori_pesti = ["#FF4500", "#FFD700", "#00BFFF", "#FF69B4", "orange"]
+
+for _ in range(12):
+    xx = random.randint(-350, 350)
+    yy = random.randint(-150, 200)
+    raza = random.randint(30, 50)
+    col = random.choice(culori_pesti)
+
+    deseneaza_peste(xx, yy, col, raza)
+    time.sleep(0.1)
+
+# 4. Invazia Meduzelor (Centrate și frumoase)
+culori_meduze = ["#9370DB", "#DA70D6", "#8A2BE2"]  # Nuanțe de mov
+
+for _ in range(5):
+    xx = random.randint(-350, 350)
+    yy = random.randint(50, 280)  # Meduzele stau mai sus în apă
+    raza = random.randint(20, 35)
+    col = random.choice(culori_meduze)
+
+    deseneaza_meduza(xx, yy, raza, col)
+    time.sleep(0.2)
+
+# 5. Bule de aer (Final touch)
+for _ in range(25):
+    xx = random.randint(-380, 380)
+    yy = random.randint(-200, 280)
+    muta_la(xx, yy)
+    t.color("white")
+    t.width(1)
+    t.circle(random.randint(2, 5))
+
+t.hideturtle()
+turtle.done()
