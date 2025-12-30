@@ -1,0 +1,97 @@
+import turtle
+import time
+import random
+
+# --- Setări ecran și țestoasă ---
+turtle.bgcolor("black")
+turtle.title("🐢 Spectacol Cosmic 3D ✨")
+t = turtle.Turtle()
+t.speed(0)
+t.width(2)
+
+culori = ["red", "orange", "yellow", "lime", "cyan", "blue", "magenta", "white"]
+
+# --- INTRO ---
+t.penup()
+t.goto(-180, 0)
+t.pendown()
+t.color("white")
+t.write("🐢 Bine ați venit la Spectacolul Cosmic 3D!", font=("Arial", 16, "bold"))
+time.sleep(2)
+t.clear()
+
+# --- EFECT 1: STELE ROTITOARE ---
+for i in range(36):
+    t.color(random.choice(culori))
+    t.forward(100)
+    t.right(144)
+    t.forward(100)
+    t.right(144)
+    t.forward(100)
+    t.right(144)
+    t.forward(100)
+    t.right(144)
+    t.forward(100)
+    t.right(144)
+    t.right(10)
+    time.sleep(0.05)
+t.clear()
+
+# --- EFECT 2: SPIRALĂ GALACTICĂ ---
+t.penup()
+t.goto(0, 0)
+t.pendown()
+for i in range(200):
+    t.color(random.choice(culori))
+    t.forward(i * 1.5)
+    t.left(59)
+    time.sleep(0.01)
+t.clear()
+
+# --- EFECT 3: EXPLOZIE 3D ---
+t.penup()
+t.goto(0, 0)
+t.pendown()
+for i in range(36):
+    t.color(random.choice(culori))
+    t.forward(150)
+    t.backward(150)
+    t.left(10)
+    time.sleep(0.02)
+t.clear()
+
+# --- EFECT 4: SPIRALĂ DUBLU COLORATĂ ---
+t.penup()
+t.goto(0, 0)
+t.pendown()
+for i in range(180):
+    t.color(culori[i % len(culori)])
+    t.forward(i * 1.2)
+    t.left(61)
+    time.sleep(0.005)
+t.clear()
+
+# --- EFECT 5: FOCURI DE ARTIFICII ---
+for foc in range(10):
+    t.penup()
+    x = random.randint(-200, 200)
+    y = random.randint(-150, 150)
+    t.goto(x, y)
+    t.pendown()
+    for raza in range(36):
+        t.color(random.choice(culori))
+        t.forward(50)
+        t.backward(50)
+        t.right(10)
+    time.sleep(0.3)
+t.clear()
+
+# --- FINAL ---
+t.penup()
+t.goto(-160, 0)
+t.pendown()
+t.color("white")
+t.write("Sfârșitul Spectacolului Cosmic! 💡", font=("Arial", 16, "bold"))
+t.hideturtle()
+
+turtle.done()
