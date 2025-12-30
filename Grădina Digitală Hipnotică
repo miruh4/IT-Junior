@@ -1,0 +1,98 @@
+import turtle
+import time
+import random
+
+# --- Setări inițiale ---
+turtle.bgcolor("black")
+turtle.title("🌺 Grădina Digitală Hipnotică ✨")
+t = turtle.Turtle()
+t.speed(0)
+t.width(2)
+t.hideturtle()
+
+# Paletă de culori neon
+culori = ["#FF007F", "#00FFFF", "#76FF03", "#FFFF00", "#FF5722", "#D500F9"]
+
+# --- INTRODUCERE ---
+t.penup()
+t.goto(0, 0)
+t.color("white")
+t.write("Pregătiți-vă pentru...", align="center", font=("Courier", 14, "normal"))
+time.sleep(1)
+t.goto(0, -30)
+t.write("🌺 GRĂDINA DIGITALĂ 🌺", align="center", font=("Arial", 20, "bold"))
+time.sleep(2)
+t.clear()
+
+# --- EPISODUL 1: FLOAREA MATEMATICĂ (Rozete) ---
+# Învățăm despre: Cercuri și rotație
+t.goto(0, 0)
+t.pendown()
+
+for i in range(6):  # Desenăm 6 "petale" mari
+    t.color(culori[i % len(culori)])
+    for _ in range(30):  # Fiecare petală e compusă din cercuri mici
+        t.circle(80)
+        t.left(12)  # Rotim puțin cercul
+    time.sleep(0.2)
+
+time.sleep(1)
+t.clear()
+
+# --- EPISODUL 2: PLOAIA DE LICURICI (Random) ---
+# Învățăm despre: Coordonate X și Y și numere aleatorii
+t.width(4)
+for i in range(50):
+    t.penup()
+    # Alegem o poziție la întâmplare pe ecran
+    x = random.randint(-300, 300)
+    y = random.randint(-250, 250)
+    t.goto(x, y)
+    t.pendown()
+
+    t.color(random.choice(culori))
+    marime = random.randint(5, 25)
+    t.dot(marime)  # Desenăm un punct (licurici)
+    time.sleep(0.05)
+
+time.sleep(1)
+t.clear()
+t.width(2)
+
+# --- EPISODUL 3: TUNELUL PĂTRAT (Geometrie) ---
+# Învățăm despre: Creșterea unei variabile
+t.penup()
+t.goto(0, 0)
+t.pendown()
+
+for i in range(150):
+    t.color(culori[i % 6])  # Schimbăm culoarea ciclic
+    t.forward(i * 2)  # Latura devine tot mai lungă
+    t.left(91)  # 90 ar fi pătrat perfect, 91 creează efectul de spirală
+
+time.sleep(1)
+t.clear()
+
+# --- EPISODUL 4: FOCUL DE ARTIFICII FINAL ---
+# Învățăm despre: Funcții (concept vizual)
+t.penup()
+t.goto(0, -100)
+t.pendown()
+
+for raza in range(10, 200, 5):
+    t.color(random.choice(culori))
+    t.pensize(random.randint(1, 3))
+    t.circle(raza)
+    t.left(45)  # Schimbăm axa
+    t.forward(10)
+time.sleep(1)
+t.clear()
+
+# --- FINAL ---
+t.penup()
+t.goto(0, 0)
+t.color("white")
+t.write("Ați programat cu succes! 🚀", align="center", font=("Arial", 18, "bold"))
+t.hideturtle()
+
+turtle.done()
