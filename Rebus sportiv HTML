@@ -1,0 +1,169 @@
+<html>
+<head>
+  <title>Rebus Sportiv</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      margin: 20px;
+    }
+
+    td {
+      width: 40px;
+      height: 40px;
+      border: 2px solid green;
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .verde {
+      background-color: #c8f7c5;
+    }
+
+    .galben {
+      background-color: yellow;
+    }
+
+    .gol {
+      border: none;
+      background-color: white;
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <h2>Rebus Sportiv</h2>
+
+    <table>
+      <tr>
+        <td class="gol">1.</td>
+        <td class="gol"></td>
+        <td class="gol"></td>
+        <td class="gol"></td>
+        <td class="verde"></td>
+        <td class="verde"></td>
+        <td class="galben">S</td>
+        <td class="verde"></td>
+        <td class="verde"></td>
+        <td class="verde"></td>
+        <td class="verde"></td>
+      </tr>
+
+      <tr>
+        <td class="gol">2.</td>
+        <td class="gol"></td>
+        <td class="gol"></td>
+        <td class="gol"></td>
+        <td class="gol"></td>
+        <td class="gol"></td>
+        <td class="galben">P</td>
+        <td class="verde"></td>
+        <td class="verde"></td>
+        <td class="verde"></td>
+        <td class="verde"></td>
+        <td class="verde"></td>
+        <td class="verde"></td>
+      </tr>
+
+      <tr>
+        <td class="gol">3.</td>
+        <td class="gol"></td>
+        <td class="gol"></td>
+        <td class="gol"></td>
+        <td class="gol"></td>
+        <td class="verde"></td>
+        <td class="galben">O</td>
+        <td class="verde"></td>
+        <td class="verde"></td>
+        <td class="verde"></td>
+        <td class="verde"></td>
+      </tr>
+
+      <tr>
+        <td class="gol">4.</td>
+        <td class="verde"></td>
+        <td class="verde"></td>
+        <td class="verde"></td>
+        <td class="verde"></td>
+        <td class="verde">-</td>
+        <td class="galben">R</td>
+        <td class="verde"></td>
+        <td class="verde"></td>
+        <td class="verde"></td>
+        <td class="verde"></td>
+        <td class="verde"></td>
+        <td class="gol"></td>
+      </tr>
+
+      <tr>
+        <td class="gol">5.</td>
+        <td class="gol"></td>
+        <td class="gol"></td>
+        <td class="verde"></td>
+        <td class="verde"></td>
+        <td class="verde"></td>
+        <td class="galben">T</td>
+        <td class="verde"></td>
+        <td class="verde"></td>
+        <td class="verde"></td>
+        <td class="gol"></td>
+        <td class="gol"></td>
+      </tr>
+
+      <tr>
+        <td class="gol">6.</td>
+        <td class="gol"></td>
+        <td class="gol"></td>
+        <td class="verde"></td>
+        <td class="verde"></td>
+        <td class="verde"></td>
+        <td class="galben">I</td>
+        <td class="verde"></td>
+        <td class="verde"></td>
+        <td class="gol"></td>
+        <td class="gol"></td>
+      </tr>
+
+      <tr>
+        <td class="gol">7.</td>
+        <td class="gol"></td>
+        <td class="gol"></td>
+        <td class="gol"></td>
+        <td class="gol"></td>
+        <td class="gol"></td>
+        <td class="galben">V</td>
+        <td class="verde"></td>
+        <td class="verde"></td>
+        <td class="verde"></td>
+        <td class="verde"></td>
+        <td class="gol"></td>
+      </tr>
+    </table>
+    <br>
+    <br>
+    <h3>1. Sport cu minge de 560–650 g?</h3>
+    <p>Baschet</p>
+
+    <h3>2. Dans pe gheață?</h3>
+    <p>Patinaj</p>
+
+    <h3>3. Se joacă cu crosă și puc?</h3>
+    <p>Hochei</p>
+
+    <h3>4. Lupte fără procedee la picioare?</h3>
+    <p>Lupte romane</p>
+
+    <h3>5. Tudor Casapu – campion olimpic la ce sport?</h3>
+    <p>Haltere</p>
+
+    <h3>6. Sport asemănător luptei cu săbii?</h3>
+    <p>Scrimă</p>
+
+    <h3>7. Teren de 18m x 9m?</h3>
+    <p>Volei</p>
+  </main>
+
+  <!-- Rebus sportiv realizat cu HTML -->
+</body>
+</html>
